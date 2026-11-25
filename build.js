@@ -13,6 +13,7 @@ const ROUTES = {
   'senior-living': '/senior-living', 'real-estate': '/real-estate', clientsupport: '/clientsupport',
 };
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
+const rel = (u) => u.replace(SITE, '');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const HEADER = read('src/partials/header.html');
 const FOOTER = read('src/partials/footer.html');
@@ -36,7 +37,7 @@ const fmtDate = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString('en-US'
 const posts = fs.readdirSync(path.join(ROOT, 'src/posts'))
   .map((slug) => ({ ...JSON.parse(read(`src/posts/${slug}/post.json`)), content: read(`src/posts/${slug}/content.html`) }))
   .sort((a, b) => b.date.localeCompare(a.date));
-const card = (p) => `<a class="rzb-card" href="/post/${p.slug}"><img src="${esc(p.image)}" alt="" loading="lazy" width="1200" height="675"><div class="pc-body"><h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="post-meta">${fmtDate(p.date)} &middot; ${esc(p.readTime)}</span><span class="more">Read the post</span></div></a>`;
+const card = (p) => `<a class="rzb-card" href="/post/${p.slug}"><img src="${esc(rel(p.image))}" alt="" loading="lazy" width="1200" height="675"><div class="pc-body"><h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="post-meta">${fmtDate(p.date)} &middot; ${esc(p.readTime)}</span><span class="more">Read the post</span></div></a>`;
 const POST_LIST = `<section class="sec"><div class="wrap"><div class="rzb-grid">${posts.map(card).join('')}</div></div></section>`;
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -69,7 +70,7 @@ for (const p of posts) {
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 ${frameHead}\n${BLOG_CSS}`;
-  const body = `${pre}<section class="hero page-hero post-hero"><div class="wrap"><span class="eyebrow">Rise&#160;AI Blog</span><h1>${esc(p.title)}</h1><p class="post-meta">${fmtDate(p.date)} &middot; ${esc(p.readTime)}</p></div></section><main id="main"><section class="sec"><div class="wrap"><article class="rzb-post"><img class="post-cover" src="${esc(p.image)}" alt="${esc(p.title)}" width="1200" height="675"><div class="post-body">
+  const body = `${pre}<section class="hero page-hero post-hero"><div class="wrap"><span class="eyebrow">Rise&#160;AI Blog</span><h1>${esc(p.title)}</h1><p class="post-meta">${fmtDate(p.date)} &middot; ${esc(p.readTime)}</p></div></section><main id="main"><section class="sec"><div class="wrap"><article class="rzb-post"><img class="post-cover" src="${esc(rel(p.image))}" alt="${esc(p.title)}" width="1200" height="675"><div class="post-body">
 ${p.content}</div><div class="post-author">By ${esc(p.author)}, Founder of Rise&#160;AI Solutions</div><a class="post-back" href="/blogs">&larr; All posts</a></article></div></section>${post}`;
   write(url, page(head, fill(body, '/blogs')));
 }
