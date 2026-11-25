@@ -1,0 +1,260 @@
+<!-- Rise site-wide tracking: paste once into Website Settings > Tracking Code > Head -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://files.leadconnectorhq.com/file/6af86c3c893246071f7468c6/apple-touch-icon-180.png">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '644709328543788');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=644709328543788&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Google tag (gtag.js) GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-76PWQWRQXB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-76PWQWRQXB');
+</script>
+<!-- End Google tag -->
+<!-- RB footer-tight 1114: phone-only footer link spacing (Brady via Clark Nov 14 9:44 PM) -->
+<style id="rz-footer-tight">@media (max-width:600px){.rz .ftr ul{gap:0!important}.rz .ftr ul li{line-height:24px}.rz .ftr ul li a{display:block;line-height:24px}}</style>
+<!-- RB hero-fit 1119 -->
+<style id="rz-hero-fit">
+/* Home only. Inner pages use section.hero.page-hero, so :not(.page-hero) keeps this off them. */
+/* Short and medium desktop heights. 390px and 1920x1080 are unchanged. */
+
+@media (min-width: 768px) and (max-height: 820px) {
+  .rz .hero:not(.page-hero) {
+    padding-top: clamp(40px, 6.5vh, 88px);
+    padding-bottom: clamp(52px, 7.5vh, 100px);
+  }
+  .rz .hero:not(.page-hero) h1.display,
+  .rz .hero:not(.page-hero) .hero-grid > div:first-child > h1.display {
+    font-size: clamp(2.2rem, 3.8vw + 2.4vh, 4.2rem);
+    max-width: 16ch;
+  }
+  .rz .hero:not(.page-hero) .lead {
+    margin-top: 16px;
+  }
+  .rz .hero:not(.page-hero) .hero-ctas {
+    margin-top: 22px;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 700px) {
+  .rz .hero:not(.page-hero) {
+    padding-top: clamp(32px, 5.4vh, 56px);
+    padding-bottom: clamp(44px, 6.8vh, 72px);
+  }
+  .rz .hero:not(.page-hero) h1.display,
+  .rz .hero:not(.page-hero) .hero-grid > div:first-child > h1.display {
+    font-size: clamp(1.95rem, 3.2vw + 2.2vh, 3.25rem);
+    max-width: 18ch;
+    line-height: 1.05;
+  }
+  .rz .hero:not(.page-hero) .lead {
+    margin-top: 10px;
+    font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+  }
+  .rz .hero:not(.page-hero) .hero-ctas {
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 700px) {
+  .rz .hero:not(.page-hero) .hero-grid {
+    align-items: center;
+  }
+  .rz .hero:not(.page-hero) .hero-art {
+    zoom: 0.88;
+  }
+  .rz .hero:not(.page-hero) .hchip.hc1 {
+    top: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 580px) {
+  .rz .hero:not(.page-hero) {
+    padding-top: clamp(24px, 5.4vh, 36px);
+    padding-bottom: clamp(36px, 6.5vh, 48px);
+  }
+  .rz .hero:not(.page-hero) h1.display,
+  .rz .hero:not(.page-hero) .hero-grid > div:first-child > h1.display {
+    font-size: clamp(1.7rem, 2.6vw + 2.4vh, 2.55rem);
+    max-width: 20ch;
+    line-height: 1.06;
+  }
+  .rz .hero:not(.page-hero) .lead {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+  .rz .hero:not(.page-hero) .hero-ctas {
+    margin-top: 12px;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 580px) {
+  .rz .hero:not(.page-hero) .hero-grid {
+    align-items: start;
+    gap: 28px;
+  }
+  .rz .hero:not(.page-hero) .hero-art {
+    zoom: 0.74;
+  }
+  .rz .hero:not(.page-hero) .hchip.hc1 {
+    top: 2%;
+  }
+}
+</style>
+<!-- RB orb-balance 1119 -->
+<style id="rz-orb-balance">
+/* Home hero orb card on phones only. Desktop is unchanged. */
+/* Evens the top and bottom padding and tightens the gap under the orb so the card is no longer top-heavy. */
+@media (max-width: 767px) {
+  .rz .hero:not(.page-hero) .orb-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px !important;
+  }
+  .rz .hero:not(.page-hero) .orb-card .orb-btn {
+    margin: 0 auto !important;
+  }
+  .rz .hero:not(.page-hero) .orb-card .orb-title {
+    margin-top: 16px !important;
+    margin-bottom: 4px;
+    line-height: 1.15;
+  }
+  .rz .hero:not(.page-hero) .orb-card .orb-status {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .rz .hero:not(.page-hero) .orb-card .orb-note {
+    margin-bottom: 0;
+  }
+}
+</style>
+<!-- RB ghost-demo 1119 -->
+<style id="rz-ghost-demo">
+/* Pre-show the full sample-call transcript and the employment-application
+   phone demo in a light gray, then darken each line or character as the
+   existing animation reaches it. Heights stay the same. No page publish. */
+
+/* ----- Call transcript (Home and /riseai-reception) ----- */
+.rz .cc-cap {
+  opacity: 1 !important;
+}
+.rz .cc-cap:not(.is-on) .cc-who,
+.rz .cc-cap:not(.is-on) .cc-txt {
+  opacity: .22;
+}
+.rz .cc-w {
+  opacity: .22;
+}
+.rz .cc-w.is-on {
+  opacity: 1;
+}
+.rz .cc-cap.is-on:not(:has(.cc-w)) .cc-who,
+.rz .cc-cap.is-on:not(:has(.cc-w)) .cc-txt {
+  opacity: 1;
+}
+.rz .cc-cap.is-on:has(.cc-w) .cc-who {
+  opacity: 1;
+}
+.rz .cc-cap.is-on:has(.cc-w) .cc-txt {
+  opacity: 1;
+}
+
+/* ----- Employment application phone (Home and /riseai-reception) ----- */
+.rz .jt-anim .job-form {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.rz .jt-anim .jt-ph {
+  opacity: 0 !important;
+  animation: none !important;
+}
+.rz .jt-anim .jt-name .jt-txt span,
+.rz .jt-anim .jt-phone .jt-txt span {
+  max-width: 1em !important;
+}
+.rz .jt-anim .jt-name .jt-txt span {
+  animation: rz-jt-ghost-n 10s steps(1, end) infinite backwards !important;
+  animation-delay: calc(var(--i) * .11s) !important;
+}
+.rz .jt-anim .jt-phone .jt-txt span {
+  animation: rz-jt-ghost-p 10s steps(1, end) infinite backwards !important;
+  animation-delay: calc(var(--i) * .09s) !important;
+}
+@keyframes rz-jt-ghost-n {
+  0%, 26.9% { opacity: .22; }
+  27%, 100% { opacity: 1; }
+}
+@keyframes rz-jt-ghost-p {
+  0%, 45.9% { opacity: .22; }
+  46%, 100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rz .cc-cap,
+  .rz .cc-cap .cc-who,
+  .rz .cc-cap .cc-txt,
+  .rz .cc-w,
+  .rz .cc-foot {
+    opacity: 1 !important;
+  }
+  .rz .jt-anim .job-form {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  .rz .jt-anim .jt-txt span,
+  .rz .jt-anim .jt-name .jt-txt span,
+  .rz .jt-anim .jt-phone .jt-txt span {
+    opacity: 1 !important;
+    animation: none !important;
+    max-width: 1em !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+  .rz .jt-anim .job-field,
+  .rz .jt-anim .job-input {
+    width: 100%;
+  }
+  .rz .jt-anim .jt-ph,
+  .rz .jt-anim .jt-caret,
+  .rz .jt-anim .jt-notif,
+  .rz .jt-anim .jt-done {
+    animation: none !important;
+    display: none !important;
+  }
+}
+</style>
+<script>
+(function () {
+  function move() {
+    ["rz-orb-balance", "rz-ghost-demo"].forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s && document.body && s.parentNode !== document.body) {
+        document.body.appendChild(s);
+      }
+    });
+  }
+  if (document.body) move();
+  else document.addEventListener("DOMContentLoaded", move);
+})();
+</script>
+<link rel="apple-touch-icon" href="https://files.leadconnectorhq.com/file/6b02571a2c68ebcf466dddad/favicon-512x512.png">
