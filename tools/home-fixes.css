@@ -1,0 +1,25 @@
+/* iPhone Safari: clip sideways overflow on body only */
+html{overflow-x:visible!important}body{overflow-x:clip!important}
+/* Hero glow stays still; header shadow only below the bar */
+.rz .hero .glow{transform:none!important;will-change:auto!important}
+.rz .hdr{box-shadow:0 10px 20px -10px rgba(12,31,63,.35)!important}
+/* Phones and tablets: header pinned with position fixed (sticky shook in iPhone Safari on this page) */
+@media (max-width:1024px){.rz > .hdr,.rz[data-theme="light"] > .hdr{position:fixed!important;top:0;left:0;right:0;width:100%}.rz{padding-top:74px!important}}
+/* Phones: headline, intro text, orb, highlights, then the report button */
+.rz .trust .cta-m{display:none}
+@media (max-width:900px){
+.rz .hero:not(.page-hero) .hero-grid{row-gap:22px}
+.rz .hero:not(.page-hero) .hero-grid > div:first-child{display:contents}
+.rz .hero:not(.page-hero) .hero-grid h1.display{order:1;margin-bottom:0}
+.rz .hero:not(.page-hero) .hero-grid .lead{order:2;margin-top:16px}
+.rz .hero:not(.page-hero) .hero-grid .hero-art{order:3}
+.rz .hero:not(.page-hero) .hero-grid .hero-ctas{display:none}
+.rz .trust .cta-m{display:flex;justify-content:center;margin-top:22px}
+}
+/* Orb: breathing pulse while idle and a slow spin of the swirl */
+@keyframes rzOrbBreath{0%,100%{transform:scale(1);box-shadow:0 0 28px rgba(40,90,255,.45),0 0 70px rgba(30,60,220,.28)}50%{transform:scale(1.08);box-shadow:0 0 44px rgba(60,110,255,.7),0 0 110px rgba(40,80,240,.45)}}
+@keyframes rzOrbSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:no-preference){
+.rz [data-rise-orb][data-state=idle] .orb.orbv2{animation:rzOrbBreath 2.4s ease-in-out infinite!important}
+.rz [data-rise-orb] .orb.orbv2 .orbv2-c{animation:rzOrbSpin 10s linear infinite}
+}
