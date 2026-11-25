@@ -267,4 +267,13 @@ html{overflow-x:visible!important}body{overflow-x:clip!important}
 .rz [data-rise-orb][data-state=idle] .orb.orbv2{animation:rzOrbBreath 2.4s ease-in-out infinite!important}
 .rz [data-rise-orb] .orb.orbv2 .orbv2-c{animation:rzOrbSpin 10s linear infinite}
 }
+/* Phones: pull the orb card up so its "Talk to our receptionist" line shows on first load */
+@media (max-width:600px){
+.rz .hero:not(.page-hero){padding-top:14px!important}
+.rz .hero:not(.page-hero) .lead{font-size:16px;line-height:1.55}
+.rz .hero:not(.page-hero) .hero-art{margin-top:10px!important}
+.rz .hero:not(.page-hero) .orb-card{padding-top:12px;padding-bottom:16px}
+.rz .hero:not(.page-hero) .orb-btn{zoom:.8}
+.rz .hero:not(.page-hero) .orb-title{margin-top:8px}
+}
 </style>
