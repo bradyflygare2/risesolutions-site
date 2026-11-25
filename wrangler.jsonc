@@ -1,0 +1,8 @@
+{
+  "name": "risesolutions-site",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./dist", "binding": "ASSETS", "html_handling": "drop-trailing-slash" },
+  // GHL_ORIGIN: the GHL address where the /cx/ reports and the marketing funnel stay reachable after go-live.
+  "vars": { "GHL_ORIGIN": "" }
+}

@@ -17,10 +17,12 @@ const rel = (u) => u.replace(SITE, '');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const HEADER = read('src/partials/header.html');
 const FOOTER = read('src/partials/footer.html');
+// Site-wide head code from GHL website settings: Meta pixel, Google tag and shared style fixes.
+const TRACK = read('src/partials/tracking.html');
 const BLOG_CSS = `<style id="rz-blog">\n${read('src/partials/blog.css')}</style>\n`;
 // Marks the current page's menu links so the menu shows where you are.
 const headerFor = (url) => HEADER.split(`<a href="${url}"`).join(`<a href="${url}" aria-current="page"`);
-const page = (head, body) => `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n${head}</head>\n<body>\n${body}</body>\n</html>\n`;
+const page = (head, body) => `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n${head}${TRACK}\n</head>\n<body>\n${body}</body>\n</html>\n`;
 const write = (url, html) => {
   const dir = url === '/' ? OUT : path.join(OUT, url);
   fs.mkdirSync(dir, { recursive: true });
@@ -74,6 +76,10 @@ ${frameHead}\n${BLOG_CSS}`;
 ${p.content}</div><div class="post-author">By ${esc(p.author)}, Founder of Rise&#160;AI Solutions</div><a class="post-back" href="/blogs">&larr; All posts</a></article></div></section>${post}`;
   write(url, page(head, fill(body, '/blogs')));
 }
+
+// 404 page in the same frame.
+fs.writeFileSync(path.join(OUT, '404.html'), page(`<title>Page not found | Rise AI Solutions</title>\n<meta name="robots" content="noindex">\n${frameHead}\n`,
+  fill(`${pre}<section class="hero page-hero"><div class="wrap"><span class="eyebrow">404</span><h1>We couldn't find that page</h1><p class="lead">The link may be old. Try the menu above or head back home.</p><p><a class="btn btn-cta" href="/"><span class="btn-label">Go to the home page</span></a></p></div></section><main id="main">${post}`, '/404')));
 
 // Static files (images and media copied off GHL hosting).
 if (fs.existsSync(path.join(ROOT, 'public'))) fs.cpSync(path.join(ROOT, 'public'), OUT, { recursive: true });

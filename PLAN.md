@@ -42,3 +42,13 @@ Plus pages not in the sitemap (client support and others) to confirm.
 - Nov 25 home on phones (<=900px): order is headline, intro text, orb card, highlights list, then the report button (moved under "50+ languages"). Live on GHL via head CSS plus a script that clones the button into .trust. Desktop unchanged. Build this order directly in the new site.
 - Nov 25 home orb: idle breathing pulse on all screens (rzOrbBreath 2.4s, scale 1 to 1.08 with a brighter glow), only while waiting to be tapped, off for reduced-motion. Phones: 16px space between headline and intro text.
 - Nov 25 home orb: swirl canvas (.orbv2-c) spins one turn every 10s on all screens, off for reduced-motion.
+
+## Build status (Nov 25, 2026)
+- Repo builds with `node build.js` into dist/: 13 pages, /blogs list, 4 posts (src/posts/<slug>/post.json + content.html), 404 page, _redirects.
+- New post: add src/posts/<slug>/post.json and content.html, push. The list and post page are generated.
+- Images and audio copied off GHL into public/media/ by tools/images.js (runs in GitHub Actions).
+- Site-wide head code (Meta pixel 644709328543788, GA4 G-76PWQWRQXB, shared style fixes) in src/partials/tracking.html, added to every page.
+- Cloudflare: worker.js + wrangler.jsonc (Workers static assets, drop-trailing-slash). Build command `node build.js`.
+- worker.js passes these to GHL at GHL_ORIGIN (set at go-live): /cx/* reports (menu and footer swapped in, noindex) and the paid marketing funnel
+  (/marketing-plans, /funnel-landing, /marketing-agreement, /marketing-checkout*, /marketing-welcome, /funnel-welcome, /marketing-onboarding).
+- Go-live needs: a second GHL domain for the reports and the funnel (for example go.risesolutions.ai) and GHL_ORIGIN set to it.
