@@ -83,6 +83,11 @@ fs.writeFileSync(path.join(OUT, '404.html'), page(`<title>Page not found | Rise 
 
 // Static files (images and media copied off GHL hosting).
 if (fs.existsSync(path.join(ROOT, 'public'))) fs.cpSync(path.join(ROOT, 'public'), OUT, { recursive: true });
+// Sitemap and robots.txt so search engines find every page.
+const today = new Date().toISOString().slice(0, 10);
+const urls = [...Object.values(ROUTES).map((u) => [u, today]), ...posts.map((p) => [`/post/${p.slug}`, p.date])];
+fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([u, d]) => `<url><loc>${SITE}${u}</loc><lastmod>${d}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /cx/\n\nSitemap: ${SITE}/sitemap.xml\n`);
 // Cloudflare redirects: old GHL blog addresses.
 fs.copyFileSync(path.join(ROOT, 'src/_redirects'), path.join(OUT, '_redirects'));
 console.log('built', Object.keys(ROUTES).length, 'pages and', posts.length, 'posts');
