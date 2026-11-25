@@ -32,3 +32,11 @@ html{overflow-x:visible!important}body{overflow-x:clip!important}
 .rz .hero:not(.page-hero) .orb-btn{zoom:.8}
 .rz .hero:not(.page-hero) .orb-title{margin-top:8px}
 }
+/* Phones: a bit more room so the "Tap the orb" line fits on one line above Safari's toolbar */
+@media (max-width:600px){
+.rz .hero:not(.page-hero) .hero-art{margin-top:4px!important}
+.rz .hero:not(.page-hero) .orb-card{padding-top:8px}
+.rz .hero:not(.page-hero) .orb-btn{zoom:.72}
+.rz .hero:not(.page-hero) .orb-title{margin-top:4px}
+.rz .hero:not(.page-hero) .orb-status{font-size:14px;line-height:1.5}
+}
