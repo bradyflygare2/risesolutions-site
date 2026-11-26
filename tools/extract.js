@@ -40,6 +40,10 @@ for (const url of MAINS) {
   if (url === '/') { header = hdr.split(' aria-current="page"').join(''); footer = ftr; }
   body = body.replace(hdr, '<!--@HEADER-->').replace(ftr, '<!--@FOOTER-->');
   let headOut = cleanEmail(keep.join('\n')) + '\n';
+  if (url === '/senior-living') {
+    // Nov 25, 2026: Brady removed the "Why Rise AI / Built for senior living buildings" section.
+    body = body.replace(/<section class="sec tint">\s*<div class="wrap">\s*<div class="center rv">\s*<span class="eyebrow">Why Rise AI<\/span>[\s\S]*?<\/section>\n?/, '');
+  }
   if (url === '/') {
     body = body.replace('<span class="eyebrow">For senior living, real estate and growing businesses</span>\n', '');
     const cta = body.match(/<div class="hero-ctas">[\s\S]*?<\/a><\/div>/)[0];
