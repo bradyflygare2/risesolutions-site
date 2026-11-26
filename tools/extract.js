@@ -40,6 +40,30 @@ for (const url of MAINS) {
   if (url === '/') { header = hdr.split(' aria-current="page"').join(''); footer = ftr; }
   body = body.replace(hdr, '<!--@HEADER-->').replace(ftr, '<!--@FOOTER-->');
   let headOut = cleanEmail(keep.join('\n')) + '\n';
+  if (url === '/' || url === '/senior-living') {
+    // Nov 25, 2026: testimonial job title on one line, facility on the next.
+    body = body.replace(/<span class="cx-role">([^,<]+),\s*/g, '<span class="cx-role">$1<br>');
+  }
+  if (url === '/') {
+    // Nov 25, 2026 home edits from Brady.
+    // 1. Remove the "Industries / Built for the calls your industry gets" section.
+    body = body.replace(/<section class="sec">\s*<div class="wrap">\s*<div class="center rv">\s*<span class="eyebrow">Industries<\/span>[\s\S]*?<\/section>\n?/, '');
+    // 2. Messaging section label.
+    body = body.replace('id="messaging"><div class="wrap"><div class="center"><span class="eyebrow">AI Messaging</span>', 'id="messaging"><div class="wrap"><div class="center"><span class="eyebrow">Rise Messaging</span>');
+    // 3. No Customer Experience Report button in the messaging section.
+    const mi = body.indexOf('id="messaging"'), me = body.indexOf('</section>', mi);
+    body = body.slice(0, mi) + body.slice(mi, me).replace(/<a class="btn btn-cta"[^>]*data-cx-call>[\s\S]*?<\/a>/, '') + body.slice(me);
+    // 4. Who we serve: Real Estate right after Senior Living.
+    const re = body.match(/<div class="card aud has-ph">(?:(?!<div class="card aud has-ph">)[\s\S])*?<h3>Real(?:&#160;|&nbsp;| )Estate<\/h3>[\s\S]*?(?=<div class="card aud has-ph">|<\/div>\s*<\/div>\s*<\/section>)/);
+    if (re) {
+      body = body.replace(re[0], '');
+      const si = body.search(/<div class="card aud has-ph">(?:(?!<div class="card aud has-ph">)[\s\S])*?<h3>Senior(?:&#160;|&nbsp;| )Living<\/h3>/);
+      const next = body.indexOf('<div class="card aud has-ph">', si + 10);
+      body = body.slice(0, next) + re[0] + body.slice(next);
+    }
+    // 5. No "Rise Reception" label above "Coverage 24 hours a day".
+    body = body.replace('<div class="copy"><span class="eyebrow">Rise&#160;Reception</span>', '<div class="copy">');
+  }
   if (url === '/about-us') {
     // Nov 25, 2026: Meet the team first, then Our story and Brady's path. Intro and How Rise works removed.
     const m0 = body.indexOf('<main id="main">') + '<main id="main">'.length, m1 = body.indexOf('</main>');
