@@ -40,6 +40,14 @@ for (const url of MAINS) {
   if (url === '/') { header = hdr.split(' aria-current="page"').join(''); footer = ftr; }
   body = body.replace(hdr, '<!--@HEADER-->').replace(ftr, '<!--@FOOTER-->');
   let headOut = cleanEmail(keep.join('\n')) + '\n';
+  if (url === '/about-us') {
+    // Nov 25, 2026: Meet the team first, then Our story and Brady's path. Intro and How Rise works removed.
+    const m0 = body.indexOf('<main id="main">') + '<main id="main">'.length, m1 = body.indexOf('</main>');
+    const secs = body.slice(m0, m1).match(/<section[\s\S]*?<\/section>/g);
+    if (secs.length !== 7) throw new Error('about-us sections changed');
+    const team = secs[3].replace('<h2>The people behind&#160;Rise&#160;AI</h2>', '<h1>The people behind&#160;Rise&#160;AI</h1>');
+    body = body.slice(0, m0) + '\n' + [team, secs[1], secs[2], secs[5], secs[6]].join('\n') + '\n' + body.slice(m1);
+  }
   if (url === '/senior-living') {
     // Nov 25, 2026: Brady removed the "Why Rise AI / Built for senior living buildings" section.
     body = body.replace(/<section class="sec tint">\s*<div class="wrap">\s*<div class="center rv">\s*<span class="eyebrow">Why Rise AI<\/span>[\s\S]*?<\/section>\n?/, '');
