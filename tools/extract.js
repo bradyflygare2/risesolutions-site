@@ -55,6 +55,8 @@ for (const url of MAINS) {
     // 3. No Customer Experience Report button in the messaging section.
     const mi = body.indexOf('id="messaging"'), me = body.indexOf('</section>', mi);
     body = body.slice(0, mi) + body.slice(mi, me).replace(/<a class="btn btn-cta"[^>]*data-cx-call>[\s\S]*?<\/a>/, '') + body.slice(me);
+    // Headline without periods after "Every call answered" and "Every lead captured".
+    body = body.split('<span class="pd">.</span>').join('');
     // 4. Who we serve: Real Estate right after Senior Living.
     const re = body.match(/<div class="card aud has-ph">(?:(?!<div class="card aud has-ph">)[\s\S])*?<h3>Real(?:&#160;|&nbsp;| )Estate<\/h3>[\s\S]*?(?=<div class="card aud has-ph">|<\/div>\s*<\/div>\s*<\/section>)/);
     if (re) {
