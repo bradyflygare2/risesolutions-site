@@ -81,13 +81,32 @@ ${p.content}</div><div class="post-author">By ${esc(p.author)}, Founder of Rise&
 fs.writeFileSync(path.join(OUT, '404.html'), page(`<title>Page not found | Rise AI Solutions</title>\n<meta name="robots" content="noindex">\n${frameHead}\n`,
   fill(`${pre}<section class="hero page-hero"><div class="wrap"><span class="eyebrow">404</span><h1>We couldn't find that page</h1><p class="lead">The link may be old. Try the menu above or head back home.</p><p><a class="btn btn-cta" href="/"><span class="btn-label">Go to the home page</span></a></p></div></section><main id="main">${post}`, '/404')));
 
+// Embeddable home hero with the working orb (shown on staffhuddle.ai). No menu, footer or tracking.
+{
+  const home = read('src/pages/home/body.html');
+  const open = home.match(/<div class="rz"[^>]*>/)[0];
+  const hs = home.indexOf('<section class="hero">');
+  const he = home.indexOf('</section>', hs) + '</section>'.length;
+  const hero = home.slice(hs, he)
+    .replace(/<div class="hero-ctas">[\s\S]*?<\/a><\/div>/, '')
+    .replace(/<a /g, '<a target="_top" ');
+  const SKIP = ['form_embed', 'RZ_BOOK', "FID='", '[data-sample-call]', '"duration"', 'application/ld+json'];
+  const extras = ((home.slice(0, hs).match(/<style\b[\s\S]*?<\/style>/g) || []).concat(home.slice(he).match(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/g) || []))
+    .filter((b) => b.startsWith('<style') || !SKIP.some((k) => b.includes(k)));
+  const fit = '<script>(function(){function s(){try{var h=document.querySelector(".rz .hero");parent.postMessage({riseHeroHeight:Math.ceil(h.getBoundingClientRect().bottom)},"*")}catch(e){}}addEventListener("load",function(){s();setTimeout(s,800);setTimeout(s,2500)});addEventListener("resize",s)})();</script>';
+  const head = read('src/pages/home/head.html').split('\n').filter((l) => !/^<(title|meta|link rel="canonical")/.test(l)).join('\n');
+  const html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="robots" content="noindex">\n<title>Rise AI Virtual Reception demo</title>\n${head}${(TRACK.match(/<style\b[\s\S]*?<\/style>/g) || []).join('\n')}\n<style>html,body{margin:0;background:transparent}.rz{padding-top:0!important}.rz .hero{padding-top:56px!important;padding-bottom:56px!important}@media (max-width:900px){.rz .hero{padding-top:28px!important;padding-bottom:28px!important}}</style>\n</head>\n<body>\n${open}\n${hero}\n</div>\n${extras.join('\n')}\n${fit}\n</body>\n</html>\n`;
+  fs.mkdirSync(path.join(OUT, 'embed/hero'), { recursive: true });
+  fs.writeFileSync(path.join(OUT, 'embed/hero/index.html'), html);
+}
+
 // Static files (images and media copied off GHL hosting).
 if (fs.existsSync(path.join(ROOT, 'public'))) fs.cpSync(path.join(ROOT, 'public'), OUT, { recursive: true });
 // Sitemap and robots.txt so search engines find every page.
 const today = new Date().toISOString().slice(0, 10);
 const urls = [...Object.values(ROUTES).map((u) => [u, today]), ...posts.map((p) => [`/post/${p.slug}`, p.date])];
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([u, d]) => `<url><loc>${SITE}${u}</loc><lastmod>${d}</lastmod></url>`).join('\n')}\n</urlset>\n`);
-fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /cx/\n\nSitemap: ${SITE}/sitemap.xml\n`);
+fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /cx/\nDisallow: /embed/\n\nSitemap: ${SITE}/sitemap.xml\n`);
 // Cloudflare redirects: old GHL blog addresses.
 fs.copyFileSync(path.join(ROOT, 'src/_redirects'), path.join(OUT, '_redirects'));
 console.log('built', Object.keys(ROUTES).length, 'pages and', posts.length, 'posts');
