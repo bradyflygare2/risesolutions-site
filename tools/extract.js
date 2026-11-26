@@ -40,6 +40,8 @@ for (const url of MAINS) {
   if (url === '/') { header = hdr.split(' aria-current="page"').join(''); footer = ftr; }
   body = body.replace(hdr, '<!--@HEADER-->').replace(ftr, '<!--@FOOTER-->');
   let headOut = cleanEmail(keep.join('\n')) + '\n';
+  // Nov 25, 2026: no "Rise Reception" label on the closing "Coverage 24 hours a day" card, on every page.
+  body = body.replace(/<div class="copy"><span class="eyebrow">Rise(?:&#160;|&nbsp;| )Reception<\/span>/g, '<div class="copy">');
   if (url === '/' || url === '/senior-living') {
     // Nov 25, 2026: testimonial job title on one line, facility on the next.
     body = body.replace(/<span class="cx-role">([^,<]+),\s*/g, '<span class="cx-role">$1<br>');
@@ -61,8 +63,6 @@ for (const url of MAINS) {
       const next = body.indexOf('<div class="card aud has-ph">', si + 10);
       body = body.slice(0, next) + re[0] + body.slice(next);
     }
-    // 5. No "Rise Reception" label above "Coverage 24 hours a day".
-    body = body.replace('<div class="copy"><span class="eyebrow">Rise&#160;Reception</span>', '<div class="copy">');
   }
   if (url === '/about-us') {
     // Nov 25, 2026: Meet the team first, then Our story and Brady's path. Intro and How Rise works removed.
